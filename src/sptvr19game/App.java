@@ -1,47 +1,38 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package sptvr19game;
 import java.util.Random;
 import java.util.Scanner;
-/**
- *
- * @author user
- */
+
 class App {
     public void run(){
-        System.out.println("Привет, поиграем!");
+        System.out.println("Угадай задуманное число.");
+        System.out.println("---------------------------");
+        int min = 0;
+        int max = 20;
         Random random = new Random();
-        int myNumber = random.nextInt(5-0+1)+0;
-        System.out.println("Загадано число в диапазоне от 0 до 5, угадай:");
+        int myNumber = random.nextInt(max-min+1)+min;
+        System.out.println("Задумано число от "+min+" до "+max+". Угадай!");
         Scanner scanner = new Scanner(System.in);
-        String gamerNumberStr = null;
-        int gamerNumber = -1;
-        int attempt=0;
-        do {            
-            try {
-                gamerNumberStr = scanner.nextLine();
-                gamerNumber = Integer.parseInt(gamerNumberStr);
-            } catch (NumberFormatException e) {
-                System.out.println("Неправильный ввод числа");
-                System.exit(0);
-            }
+        int attempt = 1;
+        do{
+            int gamerNumber = scanner.nextInt();
             if(myNumber == gamerNumber){
                 System.out.println("Ты выиграл!");
                 break;
             }else{
-                if(attempt < 2){
-                    System.out.println("Неправильно, попробуй еще:");
+                if(attempt < 3){
+                    System.out.println("Не угадал, попробуй еще: ");
+                    if(myNumber > gamerNumber){
+                        System.out.println("(Задуманное число больше)");
+                    }else{
+                        System.out.println("(Задуманное число меньше)");
+                    }
                 }else{
-                    System.out.println("Ты проиграл, было задумано число: " + myNumber);
+                    System.out.println("Ты проиграл. Задумано число: "+myNumber);
                     break;
                 }
-                attempt++;
             }
-        } while (true);
-        System.out.println("--- конец игры ---");
-        
+            attempt++;
+        }while(true);
     }
 }
